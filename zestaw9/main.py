@@ -29,13 +29,13 @@ def draw_grid(screen):
 
 
 # generowanie owocu
-def generate_fruit(snake, lifetime):
+def generate_fruit(snake):
     while True:
         position = (random.randint(0, (WINDOW_SIZE // CELL_SIZE) - 1), random.randint(0, (WINDOW_SIZE // CELL_SIZE) - 1))
         # owoc nie może pojawić się na wężu
         if position not in snake:
             fruit_type = random.choice(['good', 'bad'])
-            return {'position': position,'type' : fruit_type, 'lifetime': lifetime}
+            return {'position': position,'type' : fruit_type, 'lifetime': 30 * FPS }
 
 
 # obsługa kursora i obliczenie kierunku
@@ -95,7 +95,7 @@ def main():
 
     snake = [(10, 10)]
     direction = RIGHT
-    fruit = generate_fruit(snake, 20)
+    fruit = generate_fruit(snake)
     score = 0
     speed = FPS
     game_time = GAME_TIME
@@ -123,9 +123,13 @@ def main():
                 print("Snake collision! Game Over!")
             break
 
+        fruit['lifetime'] -= 1
+        if fruit['lifetime'] <= 0:
+            fruit = generate_fruit(snake)
+
         if result == "good_fruit":
             score += 1
-            fruit = generate_fruit(snake, 20)
+            fruit = generate_fruit(snake)
 
         elapsed_time = (pygame.time.get_ticks() - start_ticks) // 1000
         remaining_time = game_time - elapsed_time
