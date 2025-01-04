@@ -36,7 +36,7 @@ class Polynomial:
 
     def __add__(self, other):
         max_degree = max(self.degree(), other.degree())
-        result_coefficients = [self[i] + other[i] for i in range(max_degree + 1)]      # SPRAWDZIĆ BEZ 1 NA KOŃCU
+        result_coefficients = [self[i] + other[i] for i in range(max_degree + 1)]
         return Polynomial(result_coefficients)
 
     def __sub__(self, other):
