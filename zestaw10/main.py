@@ -1,3 +1,7 @@
+"""
+Gra Kamień-Papier-Nożyce z GUI
+"""
+
 import random
 import tkinter as tk
 
